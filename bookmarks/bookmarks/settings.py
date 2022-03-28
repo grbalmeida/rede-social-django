@@ -131,3 +131,9 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 # LOGOUT_URL: o URL para o qual o usuário será redirecionado para fazer logout
 LOGOUT_URL = 'logout'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
