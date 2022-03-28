@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
 
 # Observe a diferença entre authenticate e login: authenticate() verifica as
@@ -27,3 +28,11 @@ def user_login(request):
         form = LoginForm()
 
     return render(request, 'account/login.html', {'form': form})
+
+# O decorator login_required verifica se o usuário atual está autenticado.
+# Se o usuário estiver autenticado, a view decorada será executada;
+# se não estiver autenticado, o usuário será redirecionado para o URL de login,
+# com o URL originalmente requisitado como um parâmetro de GET chamado next.
+@login_required
+def dashboard(request):
+    return render(request, 'account/dashboard.html', {'section': 'dashboard'})

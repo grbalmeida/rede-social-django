@@ -121,3 +121,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# LOGIN_REDIRECT_URL: informa o Django o URL para o qual o usuário deverá ser
+# redirecionado depois de um login bem-sucedido caso o parâmetro next não
+# esteja presente na requisição
+LOGIN_REDIRECT_URL = 'dashboard'
+# LOGIN_URL: o URL ao qual o usuário será redirecionado para fazer login
+# (por exemplo, no caso das views que utilizem o decorator login_required)
+LOGIN_URL = 'login'
+# LOGOUT_URL: o URL para o qual o usuário será redirecionado para fazer logout
+LOGOUT_URL = 'logout'
