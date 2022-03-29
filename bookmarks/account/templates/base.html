@@ -31,6 +31,23 @@
                 {% endif %}
             </span>
         </div>
+        <!-- O framework de mensagens inclui o processador de contexto django.contrib.messages.context_processors.messages, -->
+        <!-- que adiciona uma variável messages no contexto da requisição. Ela pode ser encontrada na lista context_processors -->
+        <!-- do parâmetro TEMPLATES de seu projeto. Você pode usar a variável messages em seus templates para exibir todas -->
+        <!-- as mensagens existentes ao usuário. -->
+
+        <!-- Um processador de contexto é uma função Python que aceita o objeto request como argumento e devolve um dicionário -->
+        <!-- que será adicionado ao contexto da requisição. -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        {{ message|safe }}
+                        <a href="#" class="close"></a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <div id="content">
             {% block content %}
             {% endblock %}

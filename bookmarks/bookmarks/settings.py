@@ -50,6 +50,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# As mensagens são armazenadas em um cookie, por padrão (recorrendo à
+# armazenagem na sessão como alternativa), e serão exibidas na próxima
+# requisição do usuário
+
+# Novas mensagens podem ser criadas com o método add_message() ou com qualquer
+# um dos seguintes métodos de atalho:
+
+# success(): mensagens de sucesso a serem exibidas depois de uma ação bem-sucedida
+# info(): mensagens informativas
+# warning(): ainda não houve uma falha, mas poderá haver uma de forma iminente
+# error(): uma ação não foi bem-sucedida ou houve uma falha
+# debug(): mensagens de depuração que serão removidas ou ignoradas em um ambiente de produção
+
 ROOT_URLCONF = 'bookmarks.urls'
 
 TEMPLATES = [
