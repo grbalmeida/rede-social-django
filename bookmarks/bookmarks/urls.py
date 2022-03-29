@@ -15,8 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
 ]
+
+# A função auxiliar static() é apropriada para o ambiente de desenvolvimento,
+# mas não para uso no ambiente de produção. Django é muito ineficiente para servir
+# arquivos estáticos. Jamais sirva seus arquivos estáticos com o Django em um ambiente de produção.
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

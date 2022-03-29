@@ -137,3 +137,12 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# Para permitir que Django sirva os arquivos de mídia carregados pelos usuários
+# com o servidor de desenvolvimento
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# MEDIA_URL é o URL base usado para servir os arquivos de mídia cujo upload foi feito
+# pelos usuários, e MEDIA_ROOT é o path local no qual estão esses arquivos.
