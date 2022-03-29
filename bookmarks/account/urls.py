@@ -18,6 +18,7 @@ urlpatterns = [
     # path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('', views.dashboard, name='dashboard'),
     path('', include('django.contrib.auth.urls')),
+    path('register/', views.register, name='register'),
 ]
 
 # A view PasswordChangeView cuidará do formulário de alteração de senha,
