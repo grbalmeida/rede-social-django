@@ -159,3 +159,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # MEDIA_URL é o URL base usado para servir os arquivos de mídia cujo upload foi feito
 # pelos usuários, e MEDIA_ROOT é o path local no qual estão esses arquivos.
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+]
+
+# A ordem dos backends listados no parâmetro AUTHENTICATION_BACKENDS é relevante.
+# Se as mesmas credenciais forem válidas para vários backends, Django encerrará
+# a consulta no primeiro backend que autenticar o usuário de forma bem-sucedida
