@@ -165,8 +165,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
 ]
 
 # A ordem dos backends listados no parâmetro AUTHENTICATION_BACKENDS é relevante.
 # Se as mesmas credenciais forem válidas para vários backends, Django encerrará
 # a consulta no primeiro backend que autenticar o usuário de forma bem-sucedida
+
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY') # ID do App no Facebook
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET') # Código secreto do App no Facebook
+# Opcionalmente, você pode definir um parâmetro SOCIAL_AUTH_FACEBOOK_SCOPE com as permissões
+# extras que você queira solicitar aos usuários do Facebook
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
