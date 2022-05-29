@@ -166,6 +166,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
 ]
 
 # A ordem dos backends listados no parâmetro AUTHENTICATION_BACKENDS é relevante.
@@ -177,3 +178,6 @@ SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET') # C�
 # Opcionalmente, você pode definir um parâmetro SOCIAL_AUTH_FACEBOOK_SCOPE com as permissões
 # extras que você queira solicitar aos usuários do Facebook
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+SOCIAL_AUTH_TWITTER_KEY = os.environ.get('SOCIAL_AUTH_TWITTER_KEY') # Chave de API no Twitter
+SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('SOCIAL_AUTH_TWITTER_SECRET') # Código secreto da API no Twitter
