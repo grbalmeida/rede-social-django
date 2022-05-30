@@ -4,7 +4,18 @@
 
 {% block content %}
     <h1>{{ image.title }}</h1>
-    <img src="{{ image.image.url }}" class="image-detail" />
+    {% load thumbnail %}
+    <a href="{{ image.image.url }}">
+        {% comment %}
+            Definimos uma miniatura de imagem com uma largura fixa em 300 pixels e uma
+            altura flexível para manter a proporção de tela (aspect ratio), usando o valor 0. Na
+            primeira vez em que um usuário carregar essa página, uma imagem em miniatura
+            será criada. A miniatura será armazenada no mesmo diretório do arquivo original.
+            A localização é definida pelo parâmetro MEDIA_ROOT e pelo atributo upload_to do campo image do modelo Image.
+        {% endcomment %}
+
+        <img src="{% thumbnail image.image 300x0 %}" class="image-detail" />
+    </a>
 
     {% comment %}
         Sempre que você tiver de repetir uma consulta em seu template, utilize a tag

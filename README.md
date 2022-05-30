@@ -7,8 +7,22 @@ python manage.py runserver_plus --cert-file cert.crt
 ### Certifi
 
 Para usar a urllib a fim de obter imagens a partir de URLs servidos via HTTPS,
+
 precisamos instalar o pacote Python Certifi. O Certifi é um conjunto de certificados-raiz
+
 para validar se os certificados SSL/TLS são confiáveis.
+
+### Easy-Thumbnails
+
+Estamos exibindo a imagem original na página de detalhes, porém as dimensões
+
+das diferentes imagens podem variar consideravelmente. Além disso, os arquivos
+
+originais de algumas imagens podem ser enormes, e carregá-los poderia demorar
+
+muito. A melhor forma de exibir imagens otimizadas de maneira uniforme é por
+
+meio de miniaturas (thumbnails).
 
 ### Url Django and Duke
 
