@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from .forms import ImageCreateForm
 from .models import Image
 
@@ -31,3 +33,29 @@ def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
 
     return render(request, 'images/image/detail.html', {'section': 'images', 'image': image})
+
+# O decorador require_POST devolve um objeto HttpResponseNotAllowed (código de status 405)
+# se a requisição HTTP não for feita com POST.
+@login_required
+@require_POST
+def image_like(request):
+    image_id = request.POST.get('id')
+    action = request.POST.get('action')
+
+    if image_id and action:
+        try:
+            image = Image.objects.get(id=image_id)
+            if action == 'like':
+                # Chamar add() passando um objeto que já está presente no conjunto
+                # de objetos relacionados não terá nenhum efeito.
+                image.users_like.add(request.user)
+            else:
+                # Chamar remove() e passar um objeto que não está no conjunto de
+                # objetos relacionados não terá nenhum efeito.
+                image.users_like.remove(request.user)
+            
+            return JsonResponse({'status': 'ok'})
+        except:
+            pass
+
+        return JsonResponse({'status': 'error'})
