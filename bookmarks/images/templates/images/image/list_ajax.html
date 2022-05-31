@@ -1,0 +1,22 @@
+{% load thumbnail %}
+
+{% for image in images %}
+    <div class="image">
+        <a href="{{ image.get_absolute_url }}">
+            {% comment %}
+                A opção de recorte smart informa que a imagem deve ser recortada
+                de forma incremental até o tamanho solicitado, removendo fatias
+                das bordas com o mínimo de entropia.
+            {% endcomment %}
+            {% thumbnail image.image 300x300 crop="smart" as im %}
+            <a href="{{ image.get_absolute_url }}">
+                <img src="{{ im.url }}" />
+            </a>
+        </a>
+        <div class="info">
+            <a href="{{ image.get_absolute_url }}" class="title">
+                {{ image.title }}
+            </a>
+        </div>
+    </div>
+{% endfor %}
