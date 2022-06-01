@@ -21,6 +21,13 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('edit/', views.edit, name='edit'),
     path('users/', views.user_list, name='user_list'),
+    # Certifique-se de que o padrão users/follow será colocado antes do padrão de URL
+    # user_detail. Caso contrário, qualquer requisição para /users/follow/ corresponderá
+    # à expressão regular do padrão user_detail, e essa view será executada em seu lugar.
+    # Lembre-se de que, para qualquer requisição HTTP, Django verifica o URL requisitado
+    # em relação a cada padrão na ordem em que aparecem, e interromperá a busca quando
+    # houver a primeira correspondência.
+    path('users/follow/', views.user_follow, name='user_follow'),
     path('users/<username>/', views.user_detail, name='user_detail'),
 ]
 
