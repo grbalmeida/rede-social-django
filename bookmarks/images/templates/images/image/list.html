@@ -8,3 +8,37 @@
         {% include "images/image/list_ajax.html" %}
     </div>
 {% endblock %}
+
+{% comment %}
+    * page: Armazena o número da página atual.
+
+    * empty_page: permite que você saiba se o usuário está na última página
+    e obtém uma página vazia. Assim que receber uma página vazia, você
+    interromperá o envio de outras requisições AJAX, pois vai supor que não há mais resultados.
+
+    * block_request: evita que você envie requisições adicionais enquanto uma
+    requisição AJAX estiver em andamento.
+{% endcomment %}
+
+{% block domready %}
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+
+    $(window).scroll(function() {
+        var margin = $(document).height() - $(window).height() - 200;
+        if ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+            block_request = true;
+            page += 1;
+            
+            $.get('?page=' + page, function(data) {
+                if (data == '') {
+                    empty_page = true;
+                } else {
+                    block_request = false;
+                    $('#image-list').append(data);
+                }
+            });
+        }
+    });
+{% endblock %}
