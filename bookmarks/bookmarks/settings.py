@@ -187,3 +187,14 @@ SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('SOCIAL_AUTH_TWITTER_SECRET') # Cód
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY') # Chave do cliente Google
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET') # Código secreto do cliente Google
+
+from django.urls import reverse_lazy
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
+
+# Django adiciona um método get_absolute_url() dinamicamente em qualquer
+# modelo que esteja no parâmetro ABSOLUTE_URL_OVERRIDES. Esse método devolve o URL
+# correspondente para o modelo especificado no parâmetro. Devolveremos o URL
+# user_detail para o usuário especificado.
