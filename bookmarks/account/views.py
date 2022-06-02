@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from common.decorators import ajax_required
 from actions.utils import create_action
+from actions.models import Action
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile, Contact
 
@@ -41,7 +42,18 @@ def user_login(request):
 # com o URL originalmente requisitado como um parâmetro de GET chamado next.
 @login_required
 def dashboard(request):
-    return render(request, 'account/dashboard.html', {'section': 'dashboard'})
+    # Exibe todas as ações, por padrão
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+
+    if following_ids:
+        # Se o usuário está seguindo outros usuários,
+        # obtém somente as suas ações
+        actions = actions.filter(user_id__in=following_ids)
+    
+    actions = actions[:10]
+
+    return render(request, 'account/dashboard.html', {'section': 'dashboard', 'actions': actions})
 
 def register(request):
     if request.method == 'POST':
