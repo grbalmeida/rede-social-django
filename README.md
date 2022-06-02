@@ -42,6 +42,19 @@ Armazenaremos uma ação para cada uma das seguintes interações:
 - um usuário criou uma conta
 - um usuário começou a seguir outro usuário
 
+# Otimizando QuerySets que envolvem objetos relacionados
+
+### Usando select_related()
+
+Django disponibiliza um método de QuerySet chamado select_related() que
+permite obter os objetos relacionados em relacionamentos de um para muitos.
+Isso se traduz para um QuerySet único, mais complexo, porém evita consultas
+adicionais ao acessar objetos relacionados. O método select_related serve para campos
+ForeignKey e OneToOne. Ele funciona executando uma JOIN SQL e incluindo os campos
+do objeto relacionado na instrução SELECT.
+
+Usar select_related() com cuidado pode reduzir bastante o tempo de execução.
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
