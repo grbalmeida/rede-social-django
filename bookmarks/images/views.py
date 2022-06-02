@@ -5,6 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from common.decorators import ajax_required
+from actions.utils import create_action
 from .forms import ImageCreateForm
 from .models import Image
 
@@ -21,6 +22,9 @@ def image_create(request):
             # atribui o usuário atual ao item
             new_item.user = request.user
             new_item.save()
+
+            create_action(request.user, 'bookmarked image', new_item)
+
             messages.success(request, 'Image added successfully')
 
             # redireciona para a view de detalhes do novo item criado
@@ -52,6 +56,8 @@ def image_like(request):
                 # Chamar add() passando um objeto que já está presente no conjunto
                 # de objetos relacionados não terá nenhum efeito.
                 image.users_like.add(request.user)
+
+                create_action(request.user, 'likes', image)
             else:
                 # Chamar remove() e passar um objeto que não está no conjunto de
                 # objetos relacionados não terá nenhum efeito.
