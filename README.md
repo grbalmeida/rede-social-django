@@ -55,6 +55,15 @@ do objeto relacionado na instrução SELECT.
 
 Usar select_related() com cuidado pode reduzir bastante o tempo de execução.
 
+### Usando prefetch_related()
+
+O método select_related() ajudará a melhorar o desempenho para obter objetos
+relacionados em relacionamentos de um para muitos. No entanto, select_related()
+não funciona para relacionamentos de muitos para muitos ou de muitos para um
+(campos ManyToMany ou ForeignKey inversos). Django disponibiliza um método diferente
+no QuerySet, chamado prefetch_related, que funciona para relacionamentos de muitos
+para muitos e de muitos para um, além de relacionamentos aceitos por select_related().
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
