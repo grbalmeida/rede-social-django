@@ -27,6 +27,21 @@ o CSRF como um dado de POST a cada requisição POST. Desse modo, Django permite
 defina um cabeçalho X-CSRFToken personalizado em suas requisições AJAX, contendo o valor
 do token CSRF.
 
+### Usando o framework contenttypes
+
+Django inclui um framework contenttypes que está em django.contrib.contenttypes.
+Essa aplicação é capaz de monitorar todos os modelos instalados em seu projeto
+e oferecer uma interface genérica para interagir com eles.
+
+# Adicionando ações dos usuários no registro de atividades
+
+Armazenaremos uma ação para cada uma das seguintes interações:
+
+- um usuário marcou uma imagem
+- um usuário curtiu uma imagem
+- um usuário criou uma conta
+- um usuário começou a seguir outro usuário
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
