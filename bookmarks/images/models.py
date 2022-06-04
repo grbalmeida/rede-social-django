@@ -16,6 +16,8 @@ class Image(models.Model):
     # frequência usando filter(), exclude() ou order_by(). Campos ForeignKey ou
     # campos com unique=True implicam a criação de um índice.
 
+    total_likes = models.PositiveIntegerField(db_index=True, default=0)
+
     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='images_liked', blank=True)
 
     def __str__(self):

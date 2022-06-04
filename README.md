@@ -64,6 +64,37 @@ não funciona para relacionamentos de muitos para muitos ou de muitos para um
 no QuerySet, chamado prefetch_related, que funciona para relacionamentos de muitos
 para muitos e de muitos para um, além de relacionamentos aceitos por select_related().
 
+# Usando sinais para desnormalizar contadores
+
+Há alguns casos em que vamos querer desnormalizar nossos dados. A desnormalização
+(desnormalization) consiste em deixar dados redundantes de modo a otimizar
+o desempenho na leitura. Por exemplo, você poderia copiar dados relacionados
+a um objeto a fim de evitar queries de leitura custosas no banco de dados relacionados.
+Exemplo: O modelo Image tem likes, é possível criar um contador de likes e
+cada vez que for um inserido um registro Action do tipo like, esse contador será atualizado.
+
+### Trabalhando com sinais
+
+- pre_save e post_save são enviados antes ou depois da chamada do método save() de um modelo
+- pre_delete e post_delete são enviados antes ou depois da chamado do método delete() de um modelo ou de um QuerySet
+- m2m_changed é enviado quando um ManyToManyField em um modelo é alterado
+
+**IMPORTANTE:**
+
+Há várias maneiras de melhorar o desempenho, as quais você deve levar em
+consideração antes de desnormalizar campos. Considere os índices do banco
+de dados, a otimização de queries e o caching antes de começar a desnormalizar seus dados
+
+**IMPORTANTE:**
+
+Os sinais de Django são síncronos e bloqueantes. Não confunda sinais com tarefas
+assíncronas. Entretanto, é possível combiná-los para disparar tarefas assíncronas
+quando seu código receber uma notificação por meio de um sinal.
+
+Devemos conectar nossa função receptora a um sinal de modo que ela seja chamada
+sempre que o sinal for enviado. O método recomendado para registrar seus sinais
+é importá-los no método ready() da classe de configuração de sua aplicação.
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
