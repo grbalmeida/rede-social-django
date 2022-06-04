@@ -95,6 +95,13 @@ Devemos conectar nossa função receptora a um sinal de modo que ela seja chamad
 sempre que o sinal for enviado. O método recomendado para registrar seus sinais
 é importá-los no método ready() da classe de configuração de sua aplicação.
 
+### Classes de configuração de aplicações
+
+Para registrar suas funções receptoras de sinais, se você usar o decorador receiver(),
+bastará importar o módulo signals de sua aplicação no método ready() da classe de
+configuração da aplicação. Esse método será chamado assim que o registro da aplicação
+estiver totalmente preenchido.
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
