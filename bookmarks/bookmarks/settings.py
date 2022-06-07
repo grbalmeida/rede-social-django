@@ -199,3 +199,7 @@ ABSOLUTE_URL_OVERRIDES = {
 # modelo que esteja no parâmetro ABSOLUTE_URL_OVERRIDES. Esse método devolve o URL
 # correspondente para o modelo especificado no parâmetro. Devolveremos o URL
 # user_detail para o usuário especificado.
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0

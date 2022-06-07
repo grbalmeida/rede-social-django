@@ -102,6 +102,16 @@ bastará importar o módulo signals de sua aplicação no método ready() da cla
 configuração da aplicação. Esse método será chamado assim que o registro da aplicação
 estiver totalmente preenchido.
 
+# Redis
+
+### Usando o Redis com python
+
+Comando para instalação do Redis com Docker:
+
+```
+docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+```
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
