@@ -29,6 +29,11 @@
                     <span class="total">{{ total_likes }}</span>
                     like{{ total_likes|pluralize }}
                 </span>
+
+                <span class="count">
+                    {{ total_views }} view{{ total_views|pluralize }}
+                </span>
+
                 {% comment %}
                     Qualquer atributo em qualquer elemento HTML cujo nome comece
                     com data- é um atributo de dado. Atributos de dados são usados para

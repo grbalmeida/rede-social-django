@@ -4,10 +4,17 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
+import redis
 from common.decorators import ajax_required
 from actions.utils import create_action
 from .forms import ImageCreateForm
 from .models import Image
+
+# conecta com o redis
+r = redis.Redis(host=settings.REDIS_HOST,
+                port=settings.REDIS_PORT,
+                db=settings.REDIS_DB)
 
 @login_required
 def image_create(request):
@@ -37,8 +44,14 @@ def image_create(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
+    
+    # incrementa de 1 o total de visualizações da imagem
+    total_views = r.incr(f'image:{image.id}:views')
+    # O método incr() devolve o valor final da chave depois de executar a operação.
+    # Armazenamos o valor na variável total_views e a passamos no contexto do template.
+    # A chave no Redis é criada com uma notação no formato tipo-do-objeto:id:campo (por exemplo, image:33:id)
 
-    return render(request, 'images/image/detail.html', {'section': 'images', 'image': image})
+    return render(request, 'images/image/detail.html', {'section': 'images', 'image': image, 'total_views': total_views})
 
 # O decorador require_POST devolve um objeto HttpResponseNotAllowed (código de status 405)
 # se a requisição HTTP não for feita com POST.

@@ -112,6 +112,21 @@ Comando para instalação do Redis com Docker:
 docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
 ```
 
+### Armazenando visualizações de itens no Redis
+
+Vamos definir uma forma de armazenar o número total de vezes que uma imagem foi
+visualizada. Se você implementar isso com o ORM de Django, a solução envolverá
+uma query SQL UPDATE sempre que uma imagem for exibida. Se usarmos o Redis,
+bastará incrementar um contador armazenado na memória, resultando em um desempenho
+muito melhor e em menor overhead.
+
+**IMPORTANTE:**
+
+A convenção para nomear chaves no Redis consiste em utilizar um sinal de dois-pontos
+como separador para criar chaves com namespaces. Ao fazer isso, os nomes das chaves
+serão particularmente extensos, e chaves relacionadas compartilharão partes do mesmo
+esquema em seus nomes.
+
 ### Url Django and Duke
 
 https://127.0.0.1:8000/images/create/?title=%20Django%20and%20Duke&url=https://marodrom.org/content/images/dukedjangopiano-1.jpg
