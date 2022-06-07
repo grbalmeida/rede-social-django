@@ -51,6 +51,9 @@ def image_detail(request, id, slug):
     # Armazenamos o valor na variável total_views e a passamos no contexto do template.
     # A chave no Redis é criada com uma notação no formato tipo-do-objeto:id:campo (por exemplo, image:33:id)
 
+    # incrementa de 1 o ranking da imagem
+    r.zincrby('image_ranking', 1, image.id)
+
     return render(request, 'images/image/detail.html', {'section': 'images', 'image': image, 'total_views': total_views})
 
 # O decorador require_POST devolve um objeto HttpResponseNotAllowed (código de status 405)
@@ -112,3 +115,15 @@ def image_list(request):
     # estenderá o template base.html para exibir a página completa e incluirá o
     # template list_ajax.html para incluir a lista de imagens.
     return render(request, 'images/image/list.html', {'section': 'images', 'images': images})
+
+@login_required
+def image_ranking(request):
+    # obtém o dicionário do ranking de imagens
+    image_ranking = r.zrange('image_ranking', 0, -1, desc=True)[:10]
+    image_ranking_ids = [int(id) for id in image_ranking]
+
+    # obtém as imagens mais visualizadas
+    most_viewed = list(Image.objects.filter(id__in=image_ranking_ids))
+    most_viewed.sort(key=lambda x: image_ranking_ids.index(x.id))
+
+    return render(request, 'images/image/ranking.html', {'section': 'images', 'most_viewed': most_viewed})

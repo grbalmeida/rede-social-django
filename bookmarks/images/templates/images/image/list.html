@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Images bookmarked</h1>
+    <a style="margin-bottom: 2rem; display: inline-block;" href="{% url "images:ranking" %}">Images ranking</a>
     <div id="image-list">
         {% include "images/image/list_ajax.html" %}
     </div>
